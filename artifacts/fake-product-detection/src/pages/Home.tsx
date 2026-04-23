@@ -3,9 +3,10 @@ import { motion } from "framer-motion";
 import { ArrowRight, Layers, QrCode, ShieldCheck, Fingerprint, Activity, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-
+import { currentUser } from "@/lib/auth";
 
 export default function Home() {
+  const user = currentUser();
   return (
     <div className="relative">
       <section className="relative overflow-hidden border-b border-border">
@@ -30,16 +31,24 @@ export default function Home() {
               they leave the shelf.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/verify">
+              <Link href={user ? "/verify" : "/signup"}>
                 <Button size="lg" className="gap-2">
                   Verify a product <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
-              <Link href="/login">
-                <Button size="lg" variant="outline">
-                  Sign in as manufacturer
-                </Button>
-              </Link>
+              {!user ? (
+                <Link href="/login">
+                  <Button size="lg" variant="outline">
+                    Sign in to system
+                  </Button>
+                </Link>
+              ) : (
+                <Link href="/">
+                  <Button size="lg" variant="outline">
+                    Go to Dashboard
+                  </Button>
+                </Link>
+              )}
             </div>
             <div className="mt-10 flex items-center gap-6 text-xs uppercase tracking-[0.18em] text-muted-foreground">
               <span>Immutable</span>
@@ -151,7 +160,7 @@ export default function Home() {
           <span className="italic text-primary">Give it back to them.</span>
         </h2>
         <div className="mt-8 flex justify-center gap-3">
-          <Link href="/verify">
+          <Link href={user ? "/verify" : "/signup"}>
             <Button size="lg">Try a live verification</Button>
           </Link>
           <Link href="/about">

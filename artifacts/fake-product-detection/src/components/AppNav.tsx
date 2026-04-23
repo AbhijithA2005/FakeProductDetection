@@ -4,19 +4,24 @@ import { Moon, Sun, ShieldCheck, LogOut, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { currentUser, logout } from "@/lib/auth";
-import type { User } from "@/lib/types";
+import type { User, Role } from "@/lib/types";
 
-const NAV = [
-  { href: "/", label: "Home" },
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/products", label: "Products" },
-  { href: "/verify", label: "Verify" },
-  { href: "/supply-chain", label: "Supply Chain" },
-  { href: "/scan-logs", label: "Scan Logs" },
-  { href: "/reports", label: "Reports" },
-  { href: "/blockchain", label: "Explorer" },
-  { href: "/about", label: "About" },
+const ALL_NAV = [
+  { href: "/home", label: "Home", roles: ["admin", "retailer", "inspector", "consumer"] },
+  { href: "/dashboard", label: "Dashboard", roles: ["admin"] },
+  { href: "/products", label: "Products", roles: ["admin", "retailer"] },
+  { href: "/verify", label: "Verify", roles: ["admin", "retailer", "inspector", "consumer"] },
+  { href: "/supply-chain", label: "Supply Chain", roles: ["admin", "retailer"] },
+  { href: "/scan-logs", label: "Scan Logs", roles: ["admin", "inspector"] },
+  { href: "/reports", label: "Reports", roles: ["admin", "inspector"] },
+  { href: "/blockchain", label: "Explorer", roles: ["admin"] },
+  { href: "/about", label: "About", roles: ["admin", "retailer", "inspector", "consumer"] },
 ];
+
+function getNavItems(role?: Role) {
+  const currentRole = role || "consumer";
+  return ALL_NAV.filter(item => item.roles.includes(currentRole));
+}
 
 export function AppNav() {
   const [location, setLocation] = useLocation();
@@ -63,7 +68,7 @@ export function AppNav() {
         </Link>
 
         <nav className="ml-auto hidden items-center gap-0.5 text-sm xl:flex">
-          {NAV.map((item) => {
+          {getNavItems(user?.role).map((item) => {
             const active = location === item.href ||
               (item.href !== "/" && location.startsWith(item.href));
             return (
@@ -119,7 +124,7 @@ export function AppNav() {
       {open && (
         <div className="border-t border-border bg-background xl:hidden">
           <div className="mx-auto flex max-w-7xl flex-col p-4 md:px-6">
-            {NAV.map((item) => (
+            {getNavItems(user?.role).map((item) => (
               <Link
                 key={item.href}
                 href={item.href}

@@ -6,9 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { storage } from "@/lib/storage";
+import { currentUser } from "@/lib/auth";
 
 
 export default function Products() {
+  const user = currentUser();
   const [q, setQ] = useState("");
   const products = storage.getProducts();
 
@@ -35,11 +37,13 @@ export default function Products() {
             Every item below has its own block on the BlockTrust ledger and a
             QR-coded identity. Search by ID, brand, batch, or serial.
           </p>
-          <Link href="/products/register" className="mt-4 inline-block">
-            <Button>
-              <Plus className="mr-1 h-4 w-4" /> Register product
-            </Button>
-          </Link>
+          {user?.role === "admin" && (
+            <Link href="/products/register" className="mt-4 inline-block">
+              <Button>
+                <Plus className="mr-1 h-4 w-4" /> Register product
+              </Button>
+            </Link>
+          )}
         </div>
 
       </div>
