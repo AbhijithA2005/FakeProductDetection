@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { storage } from "@/lib/storage";
-import themeImage from "@assets/image_1776957916098.png";
+
 
 export default function Products() {
   const [q, setQ] = useState("");
@@ -41,13 +41,7 @@ export default function Products() {
             </Button>
           </Link>
         </div>
-        <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-          <img
-            src={themeImage}
-            alt="BlockTrust registry layers"
-            className="w-full object-cover"
-          />
-        </div>
+
       </div>
 
       <div className="mt-6 flex items-center gap-3">

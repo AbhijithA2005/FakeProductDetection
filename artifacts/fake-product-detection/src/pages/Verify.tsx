@@ -11,7 +11,7 @@ import { parseScanned } from "@/lib/qr";
 import { currentUser } from "@/lib/auth";
 import type { VerifyResult } from "@/lib/detection";
 import type { Role } from "@/lib/types";
-import themeImage from "@assets/image_1776957916098.png";
+
 
 export default function Verify() {
   const [code, setCode] = useState("");
@@ -97,13 +97,7 @@ export default function Verify() {
             recent scan behavior for suspicious patterns.
           </p>
         </div>
-        <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-          <img
-            src={themeImage}
-            alt="BlockTrust verification flow"
-            className="w-full object-cover"
-          />
-        </div>
+
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Layers, QrCode, ShieldCheck, Fingerprint, Activity, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import themeImage from "@assets/image_1776957916098.png";
+
 
 export default function Home() {
   return (
@@ -50,24 +50,7 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="relative"
-          >
-            <div className="overflow-hidden rounded-xl border border-border bg-card shadow-lg">
-              <img
-                src={themeImage}
-                alt="BlockTrust layered data infrastructure"
-                className="w-full object-cover"
-              />
-            </div>
-            <div className="absolute -bottom-4 -left-4 hidden rounded-lg border border-border bg-card px-4 py-3 font-mono text-xs shadow md:block">
-              <div className="text-muted-foreground">block #12 · sha256</div>
-              <div className="font-medium">0x8a42…f019</div>
-            </div>
-          </motion.div>
+
         </div>
       </section>
 

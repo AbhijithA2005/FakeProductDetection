@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { storage } from "@/lib/storage";
-import themeImage from "@assets/image_1776957916098.png";
+
 
 export default function SupplyChain() {
   const products = storage.getProducts();
@@ -28,13 +28,7 @@ export default function SupplyChain() {
             to see its full custody trail from factory floor to final buyer.
           </p>
         </div>
-        <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-          <img
-            src={themeImage}
-            alt="BlockTrust supply-chain layers"
-            className="w-full object-cover"
-          />
-        </div>
+
       </div>
 
       <div className="mt-8 max-w-md">

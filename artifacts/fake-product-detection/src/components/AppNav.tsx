@@ -62,7 +62,7 @@ export function AppNav() {
           </div>
         </Link>
 
-        <nav className="ml-auto hidden flex-wrap items-center gap-1 text-sm lg:flex">
+        <nav className="ml-auto hidden items-center gap-0.5 text-sm xl:flex">
           {NAV.map((item) => {
             const active = location === item.href ||
               (item.href !== "/" && location.startsWith(item.href));
@@ -70,7 +70,7 @@ export function AppNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-md px-3 py-1.5 transition-colors ${
+                className={`whitespace-nowrap rounded-md px-2 py-1.5 transition-colors ${
                   active
                     ? "bg-secondary text-foreground"
                     : "text-muted-foreground hover:text-foreground"
@@ -108,7 +108,7 @@ export function AppNav() {
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden"
+            className="xl:hidden"
             onClick={() => setOpen((o) => !o)}
             aria-label="Menu"
           >
@@ -117,7 +117,7 @@ export function AppNav() {
         </div>
       </div>
       {open && (
-        <div className="border-t border-border bg-background lg:hidden">
+        <div className="border-t border-border bg-background xl:hidden">
           <div className="mx-auto flex max-w-7xl flex-col p-4 md:px-6">
             {NAV.map((item) => (
               <Link

@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { login } from "@/lib/auth";
-import themeImage from "@assets/image_1776957916098.png";
+
 
 const DEMO = [
   { user: "admin", pass: "admin123", label: "Admin / Manufacturer" },
@@ -36,13 +36,7 @@ export default function Login() {
     <div className="mx-auto max-w-6xl px-4 py-16 md:px-6">
       <div className="grid gap-10 md:grid-cols-[1.05fr_1fr]">
         <div>
-          <div className="mb-8 overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-            <img
-              src={themeImage}
-              alt="BlockTrust three-layer architecture"
-              className="w-full object-cover"
-            />
-          </div>
+
           <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
             Role selection
           </div>

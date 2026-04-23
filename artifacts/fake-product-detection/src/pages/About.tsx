@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import themeImage from "@assets/image_1776957916098.png";
+
 
 const SECTIONS: { title: string; body: string[] }[] = [
   {
@@ -60,12 +60,7 @@ export default function About() {
       </h1>
 
       <div className="mt-8 overflow-hidden rounded-xl border border-border bg-card">
-        <img
-          src={themeImage}
-          alt="BlockTrust three-layer infrastructure"
-          className="w-full object-cover"
-        />
-        <div className="border-t border-border p-5 text-sm text-muted-foreground">
+        <div className="p-5 text-sm text-muted-foreground">
           BlockTrust organizes authenticity as three cooperating layers:
           <span className="text-foreground"> discovery &amp; search</span>,
           <span className="text-foreground"> clean &amp; enrich</span>, and an
