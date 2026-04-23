@@ -7,6 +7,17 @@ import { currentUser } from "@/lib/auth";
 
 export default function Home() {
   const user = currentUser();
+
+  const getDashboardText = (role?: string) => {
+    switch (role) {
+      case "admin": return "Go to Dashboard";
+      case "retailer": return "Go to Supply Chain";
+      case "inspector": return "Go to Scan Logs";
+      case "consumer": return "Go to Verification";
+      default: return "Open App";
+    }
+  };
+
   return (
     <div className="relative">
       <section className="relative overflow-hidden border-b border-border">
@@ -45,7 +56,7 @@ export default function Home() {
               ) : (
                 <Link href="/">
                   <Button size="lg" variant="outline">
-                    Go to Dashboard
+                    {getDashboardText(user.role)}
                   </Button>
                 </Link>
               )}
@@ -90,6 +101,7 @@ export default function Home() {
                 "Every registration, transfer, and verification writes a new SHA-256 linked block. Break one, and every downstream block shows it.",
               href: "/blockchain",
               cta: "Open explorer",
+              allowedRoles: ["admin"],
             },
             {
               icon: QrCode,
@@ -99,6 +111,7 @@ export default function Home() {
                 "Register a product once and BlockTrust mints a signed QR and serial code you can print, ship, and trust.",
               href: "/products/register",
               cta: "Register a product",
+              allowedRoles: ["admin"],
             },
             {
               icon: ShieldCheck,
@@ -108,8 +121,11 @@ export default function Home() {
                 "Scan or type a code — we cross-check the ledger, scan history, and ownership path in under a second.",
               href: "/verify",
               cta: "Verify now",
+              allowedRoles: ["admin", "retailer", "inspector", "consumer"],
             },
-          ].map((c, i) => (
+          ].map((c, i) => {
+            const canAccess = !user || c.allowedRoles.includes(user.role);
+            return (
             <motion.div
               key={c.title}
               initial={{ opacity: 0, y: 12 }}
@@ -123,17 +139,23 @@ export default function Home() {
                     <c.icon className="h-3.5 w-3.5" /> {c.tag}
                   </div>
                   <h3 className="font-serif text-2xl leading-tight">{c.title}</h3>
-                  <p className="mt-3 text-sm text-muted-foreground">{c.body}</p>
-                  <Link
-                    href={c.href}
-                    className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all"
-                  >
-                    {c.cta} <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
+                  <p className="mt-3 text-sm text-muted-foreground flex-1">{c.body}</p>
+                  {canAccess ? (
+                    <Link
+                      href={c.href}
+                      className="mt-6 inline-flex w-fit items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all"
+                    >
+                      {c.cta} <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
+                  ) : (
+                    <div className="mt-6 inline-flex w-fit items-center gap-1 text-sm font-medium text-muted-foreground/60 cursor-not-allowed" title="Restricted access">
+                      {c.cta} <Lock className="h-3.5 w-3.5 ml-1" />
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>
-          ))}
+          )})}
         </div>
       </section>
 
@@ -160,9 +182,17 @@ export default function Home() {
           <span className="italic text-primary">Give it back to them.</span>
         </h2>
         <div className="mt-8 flex justify-center gap-3">
-          <Link href={user ? "/verify" : "/signup"}>
-            <Button size="lg">Try a live verification</Button>
-          </Link>
+          {!user ? (
+            <Link href="/signup">
+              <Button size="lg">Try a live verification</Button>
+            </Link>
+          ) : (
+            <Link href="/">
+              <Button size="lg">
+                {getDashboardText(user.role)}
+              </Button>
+            </Link>
+          )}
           <Link href="/about">
             <Button size="lg" variant="outline">
               Read the documentation
