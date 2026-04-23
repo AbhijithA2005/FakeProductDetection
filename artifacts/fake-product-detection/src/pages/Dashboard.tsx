@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/StatusBadge";
 import { storage } from "@/lib/storage";
 import { getChain, isChainValid } from "@/lib/blockchain";
+import themeImage from "@assets/image_1776957916098.png";
 
 export default function Dashboard() {
   const [products, setProducts] = useState(storage.getProducts());
@@ -95,6 +96,31 @@ export default function Dashboard() {
           </Card>
         ))}
       </div>
+
+      <Card className="mt-6 overflow-hidden">
+        <div className="grid items-center gap-0 md:grid-cols-[1fr_1.2fr]">
+          <div className="p-6">
+            <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+              Reference architecture
+            </div>
+            <h2 className="mt-2 font-serif text-2xl">
+              Three layers of <span className="italic text-primary">trust</span>
+            </h2>
+            <p className="mt-3 text-sm text-muted-foreground">
+              The same shape that powers data infrastructure powers product
+              authenticity here — discover &amp; search, clean &amp; enrich, and
+              an always-current ledger keep your registry honest.
+            </p>
+          </div>
+          <div className="border-t border-border bg-secondary/30 p-4 md:border-l md:border-t-0">
+            <img
+              src={themeImage}
+              alt="BlockTrust three-layer architecture"
+              className="mx-auto max-h-72 w-full rounded-md object-contain"
+            />
+          </div>
+        </div>
+      </Card>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2">

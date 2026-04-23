@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { storage } from "@/lib/storage";
+import themeImage from "@assets/image_1776957916098.png";
 
 export default function SupplyChain() {
   const products = storage.getProducts();
@@ -16,14 +17,25 @@ export default function SupplyChain() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 md:px-6">
-      <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-        Provenance
+      <div className="grid items-center gap-8 md:grid-cols-[1.2fr_1fr]">
+        <div>
+          <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            Provenance
+          </div>
+          <h1 className="mt-2 font-serif text-4xl">Supply chain tracker</h1>
+          <p className="mt-3 max-w-xl text-muted-foreground">
+            Every ownership handoff is written to the ledger. Pick a product
+            to see its full custody trail from factory floor to final buyer.
+          </p>
+        </div>
+        <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+          <img
+            src={themeImage}
+            alt="BlockTrust supply-chain layers"
+            className="w-full object-cover"
+          />
+        </div>
       </div>
-      <h1 className="mt-2 font-serif text-4xl">Supply chain tracker</h1>
-      <p className="mt-3 max-w-2xl text-muted-foreground">
-        Every ownership handoff is written to the ledger. Pick a product to
-        see its full custody trail from factory floor to final buyer.
-      </p>
 
       <div className="mt-8 max-w-md">
         <Select value={pid} onValueChange={setPid}>

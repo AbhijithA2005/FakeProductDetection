@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { storage } from "@/lib/storage";
+import themeImage from "@assets/image_1776957916098.png";
 
 export default function Products() {
   const [q, setQ] = useState("");
@@ -24,18 +25,29 @@ export default function Products() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 md:px-6">
-      <div className="flex flex-wrap items-end justify-between gap-4">
+      <div className="grid items-center gap-6 md:grid-cols-[1.4fr_1fr]">
         <div>
           <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
             Registry
           </div>
           <h1 className="mt-2 font-serif text-4xl">Registered products</h1>
+          <p className="mt-3 max-w-xl text-muted-foreground">
+            Every item below has its own block on the BlockTrust ledger and a
+            QR-coded identity. Search by ID, brand, batch, or serial.
+          </p>
+          <Link href="/products/register" className="mt-4 inline-block">
+            <Button>
+              <Plus className="mr-1 h-4 w-4" /> Register product
+            </Button>
+          </Link>
         </div>
-        <Link href="/products/register">
-          <Button>
-            <Plus className="mr-1 h-4 w-4" /> Register product
-          </Button>
-        </Link>
+        <div className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+          <img
+            src={themeImage}
+            alt="BlockTrust registry layers"
+            className="w-full object-cover"
+          />
+        </div>
       </div>
 
       <div className="mt-6 flex items-center gap-3">
