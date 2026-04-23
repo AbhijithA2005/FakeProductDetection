@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "BlockTrust — Fake Product Detection"
+version = "1.0.0"
+id = "artifacts/fake-product-detection"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25599
+
+[services.development]
+run = "pnpm --filter @workspace/fake-product-detection run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/fake-product-detection", "run", "build" ]
+publicDir = "artifacts/fake-product-detection/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25599"
+BASE_PATH = "/"
