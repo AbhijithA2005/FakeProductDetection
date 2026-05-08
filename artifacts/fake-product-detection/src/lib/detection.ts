@@ -28,7 +28,7 @@ export async function verifyProduct(
     return { status: "FAKE", reason: "Product ID not found on the ledger." };
   }
 
-  if (opts.token && opts.token !== product.verificationToken) {
+  if (opts.token && opts.token.trim() !== (product.verificationToken || "").trim()) {
     return { status: "FAKE", reason: "Verification token does not match on-chain record." };
   }
 

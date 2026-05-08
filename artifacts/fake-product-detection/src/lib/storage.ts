@@ -152,11 +152,19 @@ export async function seedIfNeeded(): Promise<void> {
     },
   ];
 
+  const TOKEN_MAP: Record<string, string> = {
+    "PID-NVP-001": "TK-HW2LT6", // Match from 1st screenshot
+    "PID-VLP-004": "TK-TXG7T1", // Match from 2nd screenshot
+    "PID-ART-002": "TK-ART002",
+    "PID-GLH-003": "TK-GLH003",
+    "PID-ICP-005": "TK-1L1SVF", // Match from 3rd screenshot
+  };
+
   const products: Product[] = [];
   for (const p of seedProducts) {
     const full: Product = {
       ...p,
-      verificationToken: rid("TK"),
+      verificationToken: TOKEN_MAP[p.id] ?? rid("TK"),
       registeredAt: new Date().toISOString(),
     };
     products.push(full);

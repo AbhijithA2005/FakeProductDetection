@@ -46,22 +46,50 @@ export default function Verify() {
       const qr = new Html5Qrcode("qr-reader");
       scannerRef.current = qr;
       setScanning(true);
+      
+      // Try environment camera first (back camera on mobile), 
+      // fallback to any available camera if that fails.
+      const config = { fps: 10, qrbox: (width: number, height: number) => {
+        const min = Math.min(width, height);
+        return { width: min * 0.7, height: min * 0.7 };
+      }};
+
       await qr.start(
         { facingMode: "environment" },
-        { fps: 10, qrbox: 220 },
+        config,
         async (decoded) => {
           const parsed = parseScanned(decoded);
-          setCode(decoded);
-          await run(parsed.pid, parsed.tk);
+          setCode(parsed.pid); // Show only the clean ID in the input field
           await stopScan();
+          
+          // Show a brief verifying state
+          setResult({ status: "AUTHENTIC", reason: "Decoding QR payload..." }); 
+          setTimeout(async () => {
+            await run(parsed.pid, parsed.tk);
+          }, 500);
         },
         () => {},
-      );
-    } catch {
+      ).catch(async (err) => {
+        console.warn("Environment camera failed, trying user camera...", err);
+        // Fallback for desktops/laptops which might not have an "environment" camera
+        await qr.start(
+          { facingMode: "user" },
+          config,
+          async (decoded) => {
+            const parsed = parseScanned(decoded);
+            setCode(decoded);
+            await stopScan();
+            await run(parsed.pid, parsed.tk);
+          },
+          () => {},
+        );
+      });
+    } catch (err) {
+      console.error("Scanner error:", err);
       setScanning(false);
       setResult({
         status: "FAKE",
-        reason: "Camera access is not available in this browser or was denied.",
+        reason: "Camera access is not available or was denied. Please check browser permissions.",
       });
     }
   };
